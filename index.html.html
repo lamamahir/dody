@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Ahad 💕</title>
+
+<style>
+body {
+  margin: 0;
+  overflow: hidden;
+  background: #ffd6e7;
+  font-family: Arial;
+  text-align: center;
+  color: #ff2e88;
+}
+
+h1 {
+  margin-top: 60px;
+  font-size: 40px;
+}
+
+.box {
+  background: white;
+  display: inline-block;
+  padding: 25px;
+  border-radius: 20px;
+  margin-top: 30px;
+  box-shadow: 0 0 20px rgba(0,0,0,0.1);
+}
+
+canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: -1;
+}
+</style>
+</head>
+
+<body>
+
+<canvas id="hearts"></canvas>
+
+<h1>Happy 3rd Anniversary My Love 💖</h1>
+
+<div class="box">
+  <p>Still solving the equation of loving you...</p>
+  <p>lim (my love → you) = ∞</p>
+  <p>We've been together for:</p>
+  <h2 id="counter"></h2>
+  <p>You = My Everything</p>
+  <p>사랑해 💕</p>
+</div>
+
+<script>
+// ❤️ عداد الأيام
+const startDate = new Date("April 6, 2023 00:00:00");
+
+function updateCounter() {
+  const now = new Date();
+  const diff = now - startDate;
+
+  const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+  const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+
+  document.getElementById("counter").innerText =
+    days + " days 💗 " + hours + " hours";
+}
+
+setInterval(updateCounter, 1000);
+updateCounter();
+
+
+// 💕 قلوب متحركة
+const canvas = document.getElementById("hearts");
+const ctx = canvas.getContext("2d");
+
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+
+let hearts = [];
+
+function createHeart() {
+  hearts.push({
+    x: Math.random() * canvas.width,
+    y: canvas.height + 10,
+    size: Math.random() * 8 + 4,
+    speed: Math.random() * 1 + 0.5
+  });
+}
+
+function drawHeart(x, y, size) {
+  ctx.fillStyle = "#ff4da6";
+  ctx.beginPath();
+  ctx.moveTo(x, y);
+  ctx.bezierCurveTo(x - size, y - size, x - size * 2, y + size / 2, x, y + size * 2);
+  ctx.bezierCurveTo(x + size * 2, y + size / 2, x + size, y - size, x, y);
+  ctx.fill();
+}
+
+function animate() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+  if (Math.random() < 0.1) createHeart();
+
+  hearts.forEach((heart, index) => {
+    heart.y -= heart.speed;
+    drawHeart(heart.x, heart.y, heart.size);
+
+    if (heart.y < -10) hearts.splice(index, 1);
+  });
+
+  requestAnimationFrame(animate);
+}
+
+animate();
+</script>
+
+</body>
+</html>
